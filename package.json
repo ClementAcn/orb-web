@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.2.1",
     "mdbreact": "^4.8.1",
+    "ol": "^5.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",

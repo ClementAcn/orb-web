@@ -12,9 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <div margin-top='10%'>
-          
-        </div>
+        
         <Home/>
 
         <FooterApp/>
