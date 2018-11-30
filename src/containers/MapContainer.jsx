@@ -8,10 +8,14 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import {fromLonLat} from 'ol/proj.js';
+import HEREMap from 'react-here-maps';
 
 let localisationUser;
 let latitude;
 let longitude;
+
+var nantes = fromLonLat([-1.539438, 47.206062]);
 
 class MapContainer extends Component {
   constructor(props) {
@@ -19,21 +23,24 @@ class MapContainer extends Component {
     this.state = {
         latitude: 0,
         longitude: 0,
-        user: []
+        user: [],
+        app_id:"vQVq81pAtztTqhhiUiPo",
+        app_code:"pq0K6rte5l28rxbOhVAtPg",
+        points: []
     };
   }
 
-  componentDidMount() {
+   componentDidMount() {
       // eslint-disable-next-line
     var map = new Map({
         view: new View({
-            center: [0, 0],
-            zoom: 2
+            center: nantes,
+            zoom: 14
         }),
         layers: [
             new Tile({
                 source: new OSM()
-            })
+            }),
         ],
         target: 'map'
     });
@@ -54,9 +61,14 @@ class MapContainer extends Component {
 
     return (
     <div className="row col-xl-11 m-auto ">
-      {/* <MyMapComponent isMarkerShown /> */}
-      <div className="col-xl-9 m-auto" id="map"></div>
       {localisationUser}
+      {/* <div className="col-xl-11 m-auto" id="map"></div>       */}
+        {/* <HEREMap 
+            appId="vQVq81pAtztTqhhiUiPo"
+            appCode="pq0K6rte5l28rxbOhVAtPg"
+            center={{ lat: 47.206062, lng: -1.539438 }}
+            zoom={14}
+        />  */}
     </div>
     );
   }

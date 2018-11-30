@@ -10,7 +10,7 @@ class FooterApp extends Component {
             <Row>
               <Col md="6">
                 <h5 className="title">Projet ORB</h5>
-                <p>MARTIN Cédric | AUCOIN Clement | DUBERNET Samuel | MEAUX Mathieux </p>
+                <p>MARTIN Cédric | AUCOIN Clement | DUBERNET Samuel | MEAU Matthieux </p>
               </Col>
               <Col md="6">
                 <h5 className="title">Liens</h5>

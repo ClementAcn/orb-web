@@ -2,21 +2,32 @@
   "name": "orb-web",
   "version": "0.1.0",
   "private": true,
+  "typings": "dist/main.d.ts",
   "dependencies": {
     "@material-ui/core": "^3.2.1",
     "mdbreact": "^4.8.1",
     "ol": "^5.2.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "@types/prop-types": "^15.5.2",
+    "prop-types": "^15.6.1",
+    "material-ui": "^0.20.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
+    "react-here-maps": "^0.4.0",
     "react-scripts": "2.0.5",
     "recompose": "^0.30.0"
   },
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
+    "react-dom": "^0.14.0 || ^15.0.0 || ^16.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepublishOnly": "npm run test && gulp",
+    "build": "gulp"
   },
   "eslintConfig": {
     "extends": "react-app"
