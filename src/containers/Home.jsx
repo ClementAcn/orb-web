@@ -7,7 +7,8 @@ class Home extends Component {
     super(props);
     this.state = {
         latitude: 0,
-        longitude: 0
+        longitude: 0,
+        user:[]
     };
     this.sendRequete = this.sendRequete.bind(this);
   } 

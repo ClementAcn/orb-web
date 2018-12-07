@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header.jsx';
-// import Home from './Home.jsx';
+import Home from './Home.jsx';
 import Connexion from './Connexion.jsx';
 import Inscription   from './Inscription.jsx';
 import FooterApp from './Footer.jsx';
@@ -36,35 +36,30 @@ class App extends Component {
 
     console.log("navigation : " + this.state.navigation);
     if (parseInt(this.state.navigation, 10) === 2) {
+      res = <Home name="Home" navig={this.handleClick} />
+    } else if (parseInt(this.state.navigation, 10) === 3) {
+      res = <Connexion name="Connexion" navig={this.handleClick} />
+    } else if (parseInt(this.state.navigation, 10) === 4) {
       res = <Inscription name="Inscription" navig={this.handleClick} />
-    // } else if (parseInt(this.state.navigation, 10) === 3) {
-    //   res = <Modification name="Modification" navig={this.handleClick} />
-    // } else if (parseInt(this.state.navigation, 10) === 4) {
     //   res = <Profil name="Profil" navig={this.handleClick} />
     // } else if (parseInt(this.state.navigation, 10) === 5) {
     //   res = <Home name="Home" navig={this.handleClick} />
     // } else if (parseInt(this.state.navigation, 10) === 6) {
     //   res = <Musique name="Musique" navig={this.handleClick} />
     // } else if (parseInt(this.state.navigation, 10) === 7) {
-    //   sessionStorage.clear();
-    //   this.handleClick(1);
-    //   window.location.reload();
-    // } else if (parseInt(this.state.navigation, 10) === 8) {
-    //   res = <ProfilVisiter name="ProfilVisiter" navig={this.handleClick}/>
-    // } 
+    
     } else {
-      res = <Connexion name="Connexion" navig={this.handleClick} />
+      sessionStorage.clear();
+      this.handleClick(1);
+      window.location.reload();
     }
 
     return (
       <MuiThemeProvider>
         <div className="App">
-          <Header/>
-          
-          {/* <Home/> */}
+          <Header navig={this.handleClick}/>
           {res}
-
-          <FooterApp/>
+          <FooterApp bottom/>
         </div>      
       </MuiThemeProvider>
     );

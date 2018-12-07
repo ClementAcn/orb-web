@@ -59,8 +59,7 @@ class Inscription extends Component {
                                 "adresse": this.state.adresse,
                                 "photo": this.state.photo,
                                 "profilPublic": this.state.profilPublic,
-                                "localisationPartage": this.state.localisationPartage,
-                                "listePersonneVisiter": [0],
+                                "listeLieuVisiter": [0],
                                 "interetsMusicaux": [{
                                     "_id": 0,
                                     "className": "iut.nantes.projetMRS.entity.EntityGenreMusic",

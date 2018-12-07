@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
 //import Button from '@material-ui/core/Button';
-// import { compose, withProps } from "recompose";
-// import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import 'ol/ol.css';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import Tile from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import {fromLonLat} from 'ol/proj.js';
-import HEREMap from 'react-here-maps';
+import { compose, withProps } from "recompose";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 
 let localisationUser;
 let latitude;
 let longitude;
 
-var nantes = fromLonLat([-1.539438, 47.206062]);
+const MyMapComponent = compose(
+    withProps({
+        googleMapURL:
+            "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&callback=initMap",
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div className="blockMap" />,
+        mapElement: <div style={{ height: `100%` }} />
+    }), withScriptjs, withGoogleMap
+)(props => (
+    <GoogleMap defaultZoom={11} defaultCenter={{ lat: 47.214262, lng: -1.551431 }}>
+        {localisationUser}
+    </GoogleMap>
+));
 
 class MapContainer extends Component {
   constructor(props) {
@@ -24,51 +29,43 @@ class MapContainer extends Component {
         latitude: 0,
         longitude: 0,
         user: [],
-        app_id:"vQVq81pAtztTqhhiUiPo",
-        app_code:"pq0K6rte5l28rxbOhVAtPg",
         points: []
     };
   }
 
-   componentDidMount() {
-      // eslint-disable-next-line
-    var map = new Map({
-        view: new View({
-            center: nantes,
-            zoom: 14
-        }),
-        layers: [
-            new Tile({
-                source: new OSM()
-            }),
-        ],
-        target: 'map'
-    });
+  sendRequete(a) {
+    // await sleep(5000);
+    console.log("OK");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        this.setState({
+          latitude: pos.lat,
+          longitude: pos.lng
+        })
+        console.log("latitude : " + pos.lat + "  | lng  : " + pos.lng);
+      });
+    }
   }
 
   render() {
-    localisationUser = this.state.user.map((props) => {
-        this.setState({user : props});
-       // console.log(user.nom + "  :  " + user.localisation);
-       
-       latitude = this.props.latitudeValue;
-       longitude = this.props.longitudeValue;
-       console.log("MapProps = Lat : " + latitude + " | long : " + longitude);
-       return(
-           <div>LOCALISER</div>
-       )
+    localisationUser = this.state.user.map((user) => {
+        // console.log(user.nom + "  :  " + user.localisation)
+        // console.log(Object.values(user.localisation)[0]);
+        latitude = Object.values(user.localisation)[0];
+        longitude = Object.values(user.localisation)[1];
+        return (
+            <Marker onClick={this.test.bind(this, user)} label={user.nom} position={{ lat: latitude, lng: longitude }} />
+        )
     });
 
     return (
     <div className="row col-xl-11 m-auto ">
-      {localisationUser}
-      {/* <div className="col-xl-11 m-auto" id="map"></div>       */}
-        {/* <HEREMap 
-            appId="vQVq81pAtztTqhhiUiPo"
-            appCode="pq0K6rte5l28rxbOhVAtPg"
-            center={{ lat: 47.206062, lng: -1.539438 }}
-            zoom={14}
-        />  */}
+      {localisationUser}      
+      <MyMapComponent isMarkerShown />
     </div>
     );
   }
