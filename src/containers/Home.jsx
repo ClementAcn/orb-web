@@ -26,10 +26,10 @@ class Home extends Component {
                 PAPER 1
               </Typography>
               <Typography component="p">
-                Premier paper j'écrits de la merde kjdfskfhkjlqhfkfjghfsjghsdfgjkhqlkfhlkfjhqsdlkjfhdsf
+                Premier paper j'écrits de la merde kjdfskfhkjlqhfkf jghfsjghsdfgjkhqlkfhlkfjhqsdlkjfhdsf
               </Typography>        
             <Divider />
-              <Paper elevation={2} className="p-3">
+              <Paper elevation={2} className="p-3 mt-2">
                 <Typography variant="h5" component="h1">
                   PAPER 2
                 </Typography>
