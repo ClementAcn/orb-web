@@ -9,7 +9,7 @@ class Connexion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
+            email: "", 
             mdp: "",
             result: 0
         };

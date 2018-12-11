@@ -1,71 +1,82 @@
 import React, { Component } from 'react';
 import './App.css';
-//import Button from '@material-ui/core/Button';
 import { compose, withProps } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
 
+let Nantes = { lat: 47.214262, lng: -1.551431 };
 let localisationUser;
-let latitude;
-let longitude;
 
 const MyMapComponent = compose(
     withProps({
         googleMapURL:
-            "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&callback=initMap",
+            //"https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&callback=initMap",
+            "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div className="blockMap" />,
         mapElement: <div style={{ height: `100%` }} />
     }), withScriptjs, withGoogleMap
-)(props => (
-    <GoogleMap defaultZoom={11} defaultCenter={{ lat: 47.214262, lng: -1.551431 }}>
-        {localisationUser}
-    </GoogleMap>
-));
+    )(props => (
+        <GoogleMap defaultZoom={11} defaultCenter={Nantes}>
+        </GoogleMap>
+    ));
 
 class MapContainer extends Component {
   constructor(props) {
-    super(props);
+    super(props);    
     this.state = {
-        latitude: 0,
-        longitude: 0,
-        user: [],
-        points: []
-    };
+      currentLatLng: {
+        lat: 0,
+        lng: 0
+      },
+      isMarkerShown: false
+    }
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  sendRequete(a) {
-    // await sleep(5000);
-    console.log("OK");
+
+  showCurrentLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        this.setState({
-          latitude: pos.lat,
-          longitude: pos.lng
-        })
-        console.log("latitude : " + pos.lat + "  | lng  : " + pos.lng);
-      });
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          this.setState(prevState => ({
+            currentLatLng: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            },
+            isMarkerShown: true
+          }))
+        }
+      )
+    } else {
+      console.log("error");
     }
   }
 
+  componentDidMount(){
+    this.showCurrentLocation();
+    console.log(this.state.currentLatLng);
+    return {lat : this.state.currentLatLng.lat, lng : this.state.currentLatLng.lng};
+  }
+
   render() {
-    localisationUser = this.state.user.map((user) => {
-        // console.log(user.nom + "  :  " + user.localisation)
-        // console.log(Object.values(user.localisation)[0]);
-        latitude = Object.values(user.localisation)[0];
-        longitude = Object.values(user.localisation)[1];
-        return (
-            <Marker onClick={this.test.bind(this, user)} label={user.nom} position={{ lat: latitude, lng: longitude }} />
-        )
-    });
+
+    localisationUser = (props) => {
+      this.componentDidMount();
+      console.log("test");
+      return (
+        <Marker label="Moi" position={{ lat: this.state.currentLatLng.lat, lng: this.state.currentLatLng.lng }} />
+      );
+    }
 
     return (
-    <div className="row col-xl-11 m-auto ">
-      {localisationUser}      
-      <MyMapComponent isMarkerShown />
+    <div>     
+    {/* <Fab variant="extended" aria-label="Delete" >
+        <NavigationIcon onClick={this.componentDidMount} />
+    </Fab> */}
+      <MyMapComponent 
+          isMarkerShown={this.state.isMarkerShown} />
     </div>
     );
   }

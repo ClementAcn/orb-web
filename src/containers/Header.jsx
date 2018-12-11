@@ -5,9 +5,6 @@ import './App.css';
 class Header extends Component {
   render() {
     return (
-        // <header className="App-header">
-        //   <img src={logo} className="App-logo" alt="logo" />
-        // </header>
         <header>
 
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark stylish-color-dark scrolling-navbar">
@@ -22,7 +19,7 @@ class Header extends Component {
                         <a className="nav-link" onClick={this.props.navig(2)} href="#!">Accueil<span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" onClick={this.props.navig(3)} href="#!">Connexion</a>
+                        <a className="nav-link" onClick={this.props.navig(1)} href="#!">Connexion</a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" onClick={this.props.navig(4)} href="#!">Inscription</a>

@@ -37,17 +37,10 @@ class App extends Component {
     console.log("navigation : " + this.state.navigation);
     if (parseInt(this.state.navigation, 10) === 2) {
       res = <Home name="Home" navig={this.handleClick} />
-    } else if (parseInt(this.state.navigation, 10) === 3) {
+    } else if (parseInt(this.state.navigation, 10) === 1) {
       res = <Connexion name="Connexion" navig={this.handleClick} />
     } else if (parseInt(this.state.navigation, 10) === 4) {
       res = <Inscription name="Inscription" navig={this.handleClick} />
-    //   res = <Profil name="Profil" navig={this.handleClick} />
-    // } else if (parseInt(this.state.navigation, 10) === 5) {
-    //   res = <Home name="Home" navig={this.handleClick} />
-    // } else if (parseInt(this.state.navigation, 10) === 6) {
-    //   res = <Musique name="Musique" navig={this.handleClick} />
-    // } else if (parseInt(this.state.navigation, 10) === 7) {
-    
     } else {
       sessionStorage.clear();
       this.handleClick(1);
@@ -56,11 +49,9 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        <div className="App">
           <Header navig={this.handleClick}/>
           {res}
-          <FooterApp bottom/>
-        </div>      
+          <FooterApp className="footer"/>   
       </MuiThemeProvider>
     );
   }

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import MapContainer from './MapContainer.jsx';
-//import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import {MDBContainer, MDBRow, MDBCol} from 'mdbreact'
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -9,37 +13,37 @@ class Home extends Component {
         latitude: 0,
         longitude: 0,
         user:[]
-    };
-    this.sendRequete = this.sendRequete.bind(this);
-  } 
-
-  sendRequete(a) {
-    // await sleep(5000);
-    console.log("OK");
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        this.setState({
-          latitude: pos.lat,
-          longitude: pos.lng
-        })
-        console.log("latitude : " + pos.lat + "  | lng  : " + pos.lng);
-      });
-    }
+    };  
   }
 
   render() {
-
     return (
-    <div className="row col-xl-11 mx-auto my-5 py-5">
-      {/* <MyMapComponent isMarkerShown /> */}
-      
-      <MapContainer latitudeValue={this.state.latitude} longitudeValue={this.state.longitude}/>
-      <a onClick={this.sendRequete} href="#!" className="btn-floating btn-lg col-6 col-md-4"><i className="fa fa-bullseye"></i></a>
-    </div>
+      <MDBContainer className="ml-0 my-5 py-5" >
+        <MDBRow className="w-100">
+          <MDBCol>
+            <Paper className="p-3 h-100" elevation={3}>
+              <Typography variant="h3" component="h1">
+                PAPER 1
+              </Typography>
+              <Typography component="p">
+                Premier paper j'écrits de la merde kjdfskfhkjlqhfkfjghfsjghsdfgjkhqlkfhlkfjhqsdlkjfhdsf
+              </Typography>        
+            <Divider />
+              <Paper elevation={2} className="p-3">
+                <Typography variant="h5" component="h1">
+                  PAPER 2
+                </Typography>
+                <Typography component="p">
+                  Deuxieme paper j'ecris aussi de la merde & jhfsdbf, djkezfhb
+                </Typography>
+              </Paper>
+            </Paper>
+          </MDBCol>
+          <MDBCol>
+            <MapContainer UserLatitude={this.state.latitude} UserLongitudes={this.state.longitude}/>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     );
   }
 }
