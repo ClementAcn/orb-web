@@ -5,7 +5,7 @@ import Home from './Home.jsx';
 import Connexion from './Connexion.jsx';
 import Inscription from './Inscription.jsx';
 import FooterApp from './Footer.jsx';
-import Profil from './Profil.jsx';
+import ProfilModification from './ProfilModification.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
@@ -43,7 +43,7 @@ class App extends Component {
     } else if (parseInt(this.state.navigation, 10) === 4) {
       res = <Inscription name="Inscription" navig={this.handleClick} />
     } else if (parseInt(this.state.navigation, 10) === 5) {
-      res = <Profil name="Profil" navig={this.handleClick} />
+      res = <ProfilModification name="Profil" navig={this.handleClick} />
     } else {
       sessionStorage.clear();
       this.handleClick(1);

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import {MDBContainer, MDBCol, MDBRow, MDBInput, MDBBtn} from 'mdbreact';
+import {MDBContainer, MDBCol, MDBRow, MDBInput, MDBBtn, MDBView} from 'mdbreact';
 import TextField from 'material-ui/TextField';
+import logo from '../logo.gif';
 import './App.css';
-class Profil extends Component {
+class ProfilModification extends Component {
     render() {
       return (
         <MDBContainer className="my-5 py-5 center">
+            <MDBRow className="d-flex justify-content-center">
+                <MDBView waves>
+                    <img src={logo} className="img-fluid" alt="" />
+                </MDBView>
+            </MDBRow>
             <MDBRow>
                 <MDBCol size="6">
                     <MDBInput
@@ -84,4 +90,4 @@ class Profil extends Component {
       );
     }
 }
-export default Profil;
+export default ProfilModification;
