@@ -3,6 +3,7 @@ import './App.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import {MDBContainer} from 'mdbreact'
 
 class Inscription extends Component {
     constructor(props) {
@@ -82,10 +83,7 @@ class Inscription extends Component {
                 });
 
             }
-
-
         }
-
     }
 
     handleChange(event) {
@@ -107,46 +105,45 @@ class Inscription extends Component {
 
     render() {
         return (
-            <form action="#" method="GET">
+            <MDBContainer>
+            <form action="#" className="text-center" method="GET">
             <br/>
             <br/>
             <br/>
-                <div className="blockTitle">
-                    <h1> {this.props.name} </h1>
+            <div className="blockTitle">
+                <h1> {this.props.name} </h1>
+            </div>
+            <div className="blockInscription">
+                <div className="blockGauche">
+                    <TextField floatingLabelText="Nom" name="nom" onChange={this.handleChange} />
+                    <br />
+                    <TextField floatingLabelText="Prenom" name="prenom" onChange={this.handleChange} />
+                    <br />
+                    <TextField floatingLabelText="Mot de passe" name="motDePasse" type="password" onChange={this.handleChange} />
+                    <br />
+                    <TextField floatingLabelText="Email" name="email" onChange={this.handleChange} />
+                    <br />
                 </div>
-                <div className="blockInscription">
-                    <div className="blockGauche">
-                        <TextField floatingLabelText="Nom" name="nom" onChange={this.handleChange} />
-                        <br />
-                        <TextField floatingLabelText="Prenom" name="prenom" onChange={this.handleChange} />
-                        <br />
-                        <TextField floatingLabelText="Mot de passe" name="motDePasse" type="password" onChange={this.handleChange} />
-                        <br />
-                        <TextField floatingLabelText="Email" name="email" onChange={this.handleChange} />
-                        <br />
+                <div className="blockCentrale">
+                    <TextField floatingLabelText="Adresse" name="adresse" onChange={this.handleChange} />
+                    <br />
+                    {/* <div className="toggle">
+                        <Toggle label="Compte publique" name="profilPublic" defaultToggled={true} onChange={this.handleChange} />
                     </div>
-                    <div className="blockCentrale">
-                        <TextField floatingLabelText="Adresse" name="adresse" onChange={this.handleChange} />
-                        <br />
-                        <TextField floatingLabelText="Date de naissane" name="dateNaissance" onChange={this.handleChange} errorText="format : jj/mm/aaaa" />
-                        {/* <DatePicker hintText="Date de naissane" name="dateNaissance" autoOk="true" mode="landscape" onChange={this.handleChange} /> */}
-                        <br />
-                        {/* <div className="toggle">
-                            <Toggle label="Compte publique" name="profilPublic" defaultToggled={true} onChange={this.handleChange} />
-                        </div>
-                        <br />
-                        <div className="toggle">
-                            <Toggle label="Autoriser la localisation" name="localisationPartage" defaultToggled={true} onChange={this.handleChange} />
-                        </div> */}
-                    </div>
+                    <br />
+                    <div className="toggle">
+                        <Toggle label="Autoriser la localisation" name="localisationPartage" defaultToggled={true} onChange={this.handleChange} />
+                    </div> */}
                 </div>
-                <br />
-                <div className="blockButton" >
-                    <RaisedButton label="Inscription" onClick={this.sendRequete} />
-                    <Snackbar open={this.state.openSnackbar} message="Vous etes inscrit" autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
-                    <Snackbar open={this.state.openSnackbar2} message="Manque un champ" autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
-                </div>
+            </div>
+            <br />
+            <div className="blockButton" >
+                <RaisedButton label="Inscription" onClick={this.sendRequete} />
+                <Snackbar open={this.state.openSnackbar} message="Vous etes inscrit" autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
+                <Snackbar open={this.state.openSnackbar2} message="Manque un champ" autoHideDuration={4000} onRequestClose={this.handleRequestClose} />
+            </div>
             </form >
+            </MDBContainer>
         )
     }
 };

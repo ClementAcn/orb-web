@@ -53,7 +53,7 @@ class Connexion extends Component {
         } 
         
         return (
-            <div className="mx-auto">
+            <div className="text-center mx-auto">
             <br/>
             <br/>
             <br/>

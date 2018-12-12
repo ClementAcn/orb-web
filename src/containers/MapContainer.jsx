@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import { compose, withProps } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import Fab from '@material-ui/core/Fab';
-import NavigationIcon from '@material-ui/icons/Navigation';
+// import Fab from '@material-ui/core/Fab';
+// import NavigationIcon from '@material-ui/icons/Navigation';
 
 let Nantes = { lat: 47.214262, lng: -1.551431 };
 let localisationUser;
@@ -13,9 +13,9 @@ const MyMapComponent = compose(
         googleMapURL:
             //"https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&callback=initMap",
             "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&libraries=geometry,drawing,places",
-        loadingElement: <div style={{ height: `100%` }} />,
+        loadingElement: <div style={{ height: `100%`, width: `100%` }} />,
         containerElement: <div className="blockMap" />,
-        mapElement: <div style={{ height: `100%` }} />
+        mapElement: <div style={{ height: `100%`}} />
     }), withScriptjs, withGoogleMap
     )(props => (
         <GoogleMap defaultZoom={11} defaultCenter={Nantes}>
@@ -75,8 +75,7 @@ class MapContainer extends Component {
     {/* <Fab variant="extended" aria-label="Delete" >
         <NavigationIcon onClick={this.componentDidMount} />
     </Fab> */}
-      <MyMapComponent 
-          isMarkerShown={this.state.isMarkerShown} />
+      <MyMapComponent isMarkerShown={this.state.isMarkerShown} />
     </div>
     );
   }
