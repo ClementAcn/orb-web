@@ -5,6 +5,7 @@ import Home from './Home.jsx';
 import Connexion from './Connexion.jsx';
 import Inscription from './Inscription.jsx';
 import FooterApp from './Footer.jsx';
+import HomeDetail from './HomeDetail.jsx';
 import ProfilModification from './ProfilModification.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import 'font-awesome/css/font-awesome.min.css';
@@ -38,16 +39,16 @@ class App extends Component {
     console.log("navigation : " + this.state.navigation);
     if (parseInt(this.state.navigation, 10) === 2) {
       res = <Home name="Home" navig={this.handleClick} />
-    } else if (parseInt(this.state.navigation, 10) === 1) {
+    } else if (parseInt(this.state.navigation, 10) === 1 || this.state.navigation == null)  {
       res = <Connexion name="Connexion" navig={this.handleClick} />
     } else if (parseInt(this.state.navigation, 10) === 4) {
       res = <Inscription name="Inscription" navig={this.handleClick} />
     } else if (parseInt(this.state.navigation, 10) === 5) {
-      res = <ProfilModification name="Profil" navig={this.handleClick} />
+      res = <Profil name="Profil" navig={this.handleClick} />
     } else {
       sessionStorage.clear();
       this.handleClick(1);
-      window.location.reload();
+      // window.location.reload();
     }
 
     return (

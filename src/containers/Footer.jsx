@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Col, Container, Row, Footer } from "mdbreact";
+import { Container, Footer } from "mdbreact";
 
 class FooterApp extends Component {
   render() {

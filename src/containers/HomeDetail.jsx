@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 // import Divider from '@material-ui/core/Divider';
 import {MDBContainer, MDBRow, MDBCol} from 'mdbreact'
 
-class Home extends Component {
+class HomeDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,4 +47,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default HomeDetail;
