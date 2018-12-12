@@ -19,7 +19,7 @@ class Home extends Component {
   render() {
     return (
       <MDBContainer fluid className="ml-0 my-5 py-5">
-        <MDBRow >
+        <MDBRow>
           <MDBCol className="col-3">
             <Paper className="p-3 h-100" elevation={3}>
               <Typography variant="h3">

@@ -44,7 +44,9 @@ class App extends Component {
     } else if (parseInt(this.state.navigation, 10) === 4) {
       res = <Inscription name="Inscription" navig={this.handleClick} />
     } else if (parseInt(this.state.navigation, 10) === 5) {
-      res = <Profil name="Profil" navig={this.handleClick} />
+      res = <ProfilModification name="Profil" navig={this.handleClick} />
+    } else if (parseInt(this.state.navigation, 10) === 6) {
+      res = <HomeDetail name="Profil" navig={this.handleClick} />
     } else {
       sessionStorage.clear();
       this.handleClick(1);
