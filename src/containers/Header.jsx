@@ -6,7 +6,6 @@ class Header extends Component {
   render() {
     return (
         <header>
-
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark stylish-color-dark scrolling-navbar">
                 <a className="navbar-brand" href="#!"><strong>MENU BAR EN MAINTENANCE</strong></a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -23,7 +22,10 @@ class Header extends Component {
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" onClick={this.props.navig(4)} href="#!">Inscription</a>
-                        </li>                        
+                        </li>  
+                        <li className="nav-item">
+                        <a className="nav-link" onClick={this.props.navig(5)} href="#!">Profil</a>
+                        </li>                      
                     </ul>
                     <ul className="navbar-nav nav-flex-icons">
                         <li className="nav-item">
