@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {MDBContainer, MDBCol, MDBRow} from 'mdbreact';
+import {MDBContainer, MDBCol, MDBRow, MDBInput, MDBBtn} from 'mdbreact';
 import TextField from 'material-ui/TextField';
 import './App.css';
 class Profil extends Component {
@@ -8,27 +8,77 @@ class Profil extends Component {
         <MDBContainer className="my-5 py-5 center">
             <MDBRow>
                 <MDBCol size="6">
-                    <TextField color="pink" className="w-100" floatingLabelText="Votre nom" name="nom"/>
+                    <MDBInput
+                        label="Votre nom"
+                        icon="id-card-o"
+                        group
+                        type="text"
+                        validate
+                        error="wrong"
+                        success="right"
+                    />
                 </MDBCol>
                 <MDBCol size="6">
-                    <TextField className="w-100" floatingLabelText="Votre prénom" name="prenom"/>
+                    <MDBInput
+                        label="Votre prénom"
+                        icon="id-card-o"
+                        group
+                        type="text"
+                        validate
+                        error="wrong"
+                        success="right"
+                    />
+                </MDBCol>
+            </MDBRow>
+            <MDBRow>
+                <MDBCol size="6" icon="envelope">
+                    <MDBInput
+                        label="Votre e-mail"
+                        icon="envelope"
+                        group
+                        type="text"
+                        validate
+                        error="wrong"
+                        success="right"
+                    />
+                </MDBCol>
+                <MDBCol size="6" icon="envelope">
+                    <MDBInput
+                        label="Confirmer votre e-mail"
+                        icon="envelope"
+                        group
+                        type="email"
+                        validate
+                        error="wrong"
+                        success="right"
+                    />
                 </MDBCol>
             </MDBRow>
             <MDBRow>
                 <MDBCol size="6">
-                    <TextField className="w-100" floatingLabelText="Votre mot de passe" name="mdp"/>
+                    <MDBInput
+                        label="Votre mot de passe"
+                        icon="lock"
+                        group
+                        type="password"
+                        validate
+                    />
                 </MDBCol>
                 <MDBCol size="6">
-                    <TextField className="w-100" floatingLabelText="Confirmation de votre mot de passe" name="mdp-conf"/>
+                    <MDBInput
+                        label="Confirmer votre mot de passe"
+                        icon="lock"
+                        group
+                        type="password"
+                        validate
+                    />
                 </MDBCol>
             </MDBRow>
-            <MDBRow>
-                <MDBCol size="6">
-                    <TextField className="w-100" floatingLabelText="Votre e-mail" name="mail"/>
-                </MDBCol>
-                <MDBCol size="6">
-                    <TextField className="w-100" floatingLabelText="Confirmation de votre e-mail" name="mail-conf"/>
-                </MDBCol>
+            <MDBRow className="d-flex col-12 justify-content-center">
+                <MDBBtn className="w-50" outline size="sm" color="elegant">Valider la modification de votre profil.</MDBBtn>
+            </MDBRow>
+            <MDBRow className="d-flex col-12 justify-content-center">
+                <MDBBtn className="w-50" outline size="sm" color="danger">Annulation de la modification de votre profil.</MDBBtn>
             </MDBRow>
         </MDBContainer>
       );
