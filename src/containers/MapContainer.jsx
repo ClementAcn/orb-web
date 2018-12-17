@@ -8,7 +8,6 @@ const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox
 const _ = require("lodash");
 
 let localisationUser;
-let randeats;
 
 const MyMapComponent = compose(
     withProps({
@@ -24,9 +23,7 @@ const MyMapComponent = compose(
           bounds: null,
           center: { lat: 47.214262, lng: -1.551431 },
           markers: [],
-          onMapMounted: ref => {
-            refs.map = ref;
-          },
+          onMapMounted: ref => { refs.map = ref; },
           onBoundsChanged: () => {
             this.setState({
               bounds: refs.map.getBounds(),
@@ -56,15 +53,16 @@ const MyMapComponent = compose(
               center: nextCenter,
               markers: nextMarkers,
             });
-            
-            // refs.map.fitBounds(bounds);
+            console.log(places);
+            this.setState({markerClick : places});
+            // console.log(this.state.markerClick[0].name);
           }, 
         })
       },
     }), 
     withScriptjs, withGoogleMap
     )(props => (
-      <GoogleMap ref={props.onMapMounted} defaultZoom={15} center={props.center} onBoundsChanged={props.onBoundsChanged}>
+      <GoogleMap ref={props.onMapMounted} defaultZoom={12} center={props.center} onBoundsChanged={props.onBoundsChanged}>
         <SearchBox ref={props.onSearchBoxMounted} bounds={props.bounds} controlPosition={window.google.maps.ControlPosition.TOP_LEFT} onPlacesChanged={props.onPlacesChanged}>
           <input
             type="text"
@@ -85,7 +83,7 @@ const MyMapComponent = compose(
           />
         </SearchBox>
         {props.markers.map((marker, index) =>
-          <Marker key={index} position={marker.position} />
+          <Marker key={index} onClick={this.test.bind(this)} position={marker.position} />
         )}
       </GoogleMap>
     ));
@@ -94,14 +92,14 @@ class MapContainer extends Component {
   constructor(props) {
     super(props);    
     this.state = {
-      currentLatLng: {
-        lat: 0,
-        lng: 0
-      },
-      isMarkerShown: false
+      isMarkerShown: false,
+      markerClick : []
     }
   }
 
+  test(e) {
+    console.log("test1");   
+  }
 
   showCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -120,14 +118,14 @@ class MapContainer extends Component {
       console.log("error");
     }
   }
-  render() {
+
+  render() { 
     return (
-    <div>     
+    <div>
     {/* <Fab variant="extended" aria-label="Delete" >
         <NavigationIcon onClick={this.componentDidMount} />
     </Fab> */}
       <MyMapComponent isMarkerShown={this.state.isMarkerShown} />
-      {randeats}
     </div>
     );
   }
