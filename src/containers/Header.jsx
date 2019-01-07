@@ -28,7 +28,10 @@ class Header extends Component {
                         </li>  
                         <li className="nav-item">
                         <a className="nav-link" onClick={this.props.navig(6)} href="#!">Home Detail</a>
-                        </li>                         
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" onClick={this.props.navig(7)} href="#!">Profil</a>
+                        </li>
                     </ul>
                     <ul className="navbar-nav nav-flex-icons">
                         <li className="nav-item">
