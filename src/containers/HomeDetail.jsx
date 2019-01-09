@@ -3,7 +3,8 @@ import './App.css';
 import { compose, withProps, lifecycle } from "recompose";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import {MDBContainer, MDBRow, MDBCol, MDBIcon} from 'mdbreact';
+import {MDBContainer, MDBRow, MDBCol} from 'mdbreact';
+import StarRatings from 'react-star-ratings';
 const { withScriptjs, withGoogleMap, GoogleMap, Marker} = require("react-google-maps");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 const _ = require("lodash");
@@ -100,7 +101,7 @@ placeClick[1] = {"name": "Test Place", "info":"Ceci est une info Test", "website
 let paperClick;
 
 function handleClick(event) {
-  
+
   placeClick[0] = event;
   console.log(placeClick); 
 }
@@ -109,58 +110,56 @@ class HomeDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        latitude: 0,
-        longitude: 0,
-        user:[],
-        isMarkerShown: false,
-        markerClick : [],
-        placeClicked: []
+      latitude: 0,
+      longitude: 0,
+      user:[],
+      isMarkerShown: false,
+      markerClick : [],
+      placeClicked: [],
+      rating: 0
     };
+    this.changeRating = this.changeRating.bind(this);
   }
 
+  changeRating(newRating) {
+    this.setState({
+      rating: newRating
+    });
+  }
+  
   render() {
     console.log(this.state.placeClick);
-    paperClick = placeClick.map(function(place){
-    return <Paper key={place.id} elevation={2} className="p-3 mt-2">
-      <Typography variant="h5">
-        {place.name}
-      </Typography>
-      <Typography className="mt-3">
-        {place.formatted_address}
-      </Typography >
-      <Typography className="mt-3">
-        {place.formatted_phone_number}
-      </Typography>
-      <Typography className="mt-3">
-        {place.info}
-      </Typography>
-      <Typography className="mt-3">
-        {place.website}
-      </Typography>
-      <Paper size="3" className="m-3 text-center">
-        <MDBIcon className="star"
-            size="2x"
-            icon="star"
-        />
-        <MDBIcon className="star"
-            size="2x"
-            icon="star"
-        />
-        <MDBIcon className="star"
-            size="2x"
-            icon="star"
-        />
-        <MDBIcon className="star"
-            size="2x"
-            icon="star"
-        />
-        <MDBIcon class="star"
-            size="2x"
-            icon="star-o"
-        />
+    paperClick = placeClick.map((place) => (
+      <Paper key={place.id} elevation={2} className="p-3 mt-2">
+        <Typography variant="h5">
+          {place.name}
+        </Typography>
+        <Typography className="mt-3">
+          {place.formatted_address}
+        </Typography >
+        <Typography className="mt-3">
+          {place.formatted_phone_number}
+        </Typography>
+        <Typography className="mt-3">
+          {place.info}
+        </Typography>
+        <Typography className="mt-3">
+          {place.website}
+        </Typography>
+        <Paper size="3" className="m-3 text-center">
+          <StarRatings
+            rating={this.state.rating}
+            changeRating={this.changeRating}
+            size={30}
+            starHoverColor="yellow"
+            starRatedColor="blue"
+            numberOfStars={5}
+            name='rating'
+          />
+        </Paper>
       </Paper>
-    </Paper>
-    });     
+      )
+    );     
     return (
       <MDBContainer fluid className="ml-0 my-5 py-5">
         <MDBRow >
