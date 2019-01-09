@@ -17,3 +17,13 @@
 	bottom: 0;
 	position: fixed;
 }
+
+.star:hover{
+  color: blue;
+  padding-right: 3%;
+}
+
+.star{
+  color: white;
+  padding-right: 3%;
+}
