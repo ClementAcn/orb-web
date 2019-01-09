@@ -146,7 +146,7 @@ class HomeDetail extends Component {
         <Typography className="mt-3">
           {place.website}
         </Typography>
-        <Paper size="3" className="m-3 text-center">
+        <Typography size="3" className="m-3 text-center">
           <StarRatings
             rating={this.state.rating}
             changeRating={this.changeRating}
@@ -156,7 +156,7 @@ class HomeDetail extends Component {
             numberOfStars={5}
             name='rating'
           />
-        </Paper>
+        </Typography>
       </Paper>
       )
     );     
