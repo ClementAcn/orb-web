@@ -9,8 +9,8 @@ class Connexion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "", 
-            mdp: "",
+            pseudo: "", 
+            password: "",
             result: 0
         };
         this.handleChange = this.handleChange.bind(this);
@@ -19,13 +19,8 @@ class Connexion extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch('http://localhost:8082/connexion', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'email': this.state.email,
-                'mdp': this.state.mdp
-            }
+        fetch(`http://localhost:9090/user/login?pseudo=${this.state.pseudo}&password=${this.state.password}`, {
+            method: 'POST',
         }).then(results => {
             return results.json();
         }).then(data => {
@@ -57,14 +52,16 @@ class Connexion extends Component {
             <br/>
             <br/>
             <br/>
+            <br/>
+            <br/>
                 <div className="blockTitle">
                     <h1> {this.props.name} </h1>
                 </div>
                 <form action="profil.html" method="post">
                     {error}
-                    <TextField floatingLabelText="Email" name="email" onChange={this.handleChange} errorText="Obligatoire" />
+                    <TextField floatingLabelText="Pseudo" name="pseudo" onChange={this.handleChange} errorText="Obligatoire" />
                     <br />
-                    <TextField floatingLabelText="Password" name="mdp" onChange={this.handleChange} type="password" errorText="Obligatoire" />
+                    <TextField floatingLabelText="Password" name="password" onChange={this.handleChange} type="password" errorText="Obligatoire" />
                     <br />
                     <br />
                     <RaisedButton label="Connexion" onClick={this.handleSubmit} />
@@ -72,8 +69,6 @@ class Connexion extends Component {
                 <br />
                 <RaisedButton label="Inscription" onClick={this.props.navig(2)} />
                 <br />
-                {/* <br />
-                <a href="./motdepasseOublier" id="mdpforgot">Mot de passe oublié ?</a> */}
             </div>
         )
     }

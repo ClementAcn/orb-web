@@ -3,6 +3,30 @@ import {MDBContainer, MDBCol, MDBRow, MDBInput, MDBBtn, MDBView, MDBIcon} from '
 import logo from '../logo.gif';
 import './App.css';
 class Profil extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: "",
+            result: 0
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    
+    handleSubmit(event) {
+        event.preventDefault();
+        fetch(`http://localhost:9090/user/id?id=${this.state.id}`, {
+            method: 'POST',
+        }).then(results => {
+            return results.json();
+        }).then(data => {
+            this.setState({ result: data });
+        })
+    }
+
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
     render() {
       return (
         <MDBContainer className="my-5 py-5 center">
