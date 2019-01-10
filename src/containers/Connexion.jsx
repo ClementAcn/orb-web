@@ -49,11 +49,7 @@ class Connexion extends Component {
         
         return (
             <div className="text-center mx-auto">
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br/><br/><br/><br/><br/>
                 <div className="blockTitle">
                     <h1> {this.props.name} </h1>
                 </div>

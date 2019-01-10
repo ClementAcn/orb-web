@@ -3,13 +3,15 @@ import './App.css';
 import { compose, withProps, lifecycle } from "recompose";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import {MDBContainer, MDBRow, MDBCol} from 'mdbreact';
+import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
 import StarRatings from 'react-star-ratings';
 const { withScriptjs, withGoogleMap, GoogleMap, Marker} = require("react-google-maps");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 const _ = require("lodash");
 
 var debounce = require('lodash.debounce');
+let paperClick;
+let placeClick = [];
 
 const MyMapComponent = compose(
   withProps({
@@ -104,12 +106,12 @@ const MyMapComponent = compose(
     </GoogleMap>
   ));
 
-let placeClick = [];
-placeClick[1] = {"name": "Test Place", "info":"Ceci est une info Test", "website":"http://test.fr", "formatted_address":"2 rue Bidon 44000 Nantes", "formatted_phone_number": "020202020202"}
-let paperClick;
+
+// placeClick[0] = {"name": "Test Place", "info":"Ceci est une info Test", "website":"http://test.fr", "formatted_address":"2 rue Bidon 44000 Nantes", "formatted_phone_number": "020202020202"}
+
+placeClick[0] = [];
 
 function handleClick(event) {
-
   placeClick[0] = event;
   console.log(placeClick); 
 }
@@ -124,9 +126,13 @@ class HomeDetail extends Component {
       isMarkerShown: false,
       markerClick : [],
       placeClicked: [],
-      rating: 0
+      rating: 0,
+      commentaire: "",
+      result:""
     };
     this.changeRating = this.changeRating.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   changeRating(newRating) {
@@ -134,9 +140,29 @@ class HomeDetail extends Component {
       rating: newRating
     });
   }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleSubmit(event) {
+    console.log(this.state.commentaire);
+    console.log(placeClick !== []);
+    console.log(this.state.rating);
+    console.log(placeClick);
+    if (this.state.commentaire !== "" || this.state.rating !== 0 || placeClick === []){
+      event.preventDefault();
+      fetch(`http://localhost:9191/user/login?pseudo=${this.state}&password=${this.state}`, {
+          method: 'POST',
+      }).then(results => {
+          return results.json();
+      }).then(data => {
+          this.setState({ result: data });
+      })
+  }
+}
   
   render() {
-    console.log(this.state.placeClick);
     paperClick = placeClick.map((place) => (
       <Paper key={place.id} elevation={2} className="p-3 mt-2">
         <Typography variant="h5">
@@ -164,6 +190,21 @@ class HomeDetail extends Component {
             numberOfStars={5}
             name='rating'
           />
+        </Typography>
+        <Typography className="m-3">
+          <MDBInput
+              label="Votre commentaire"
+              type="textarea"
+              rows="2"
+              onChange={this.handleChange}
+              name="commentaire"
+              validate
+              error="wrong"
+              success="right"
+          />
+        </Typography> 
+        <Typography className="m-3 text-center">
+          <MDBBtn color="primary" onClick={this.handleSubmit}>Valider</MDBBtn>
         </Typography>
       </Paper>
       )
