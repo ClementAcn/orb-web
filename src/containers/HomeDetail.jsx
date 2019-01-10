@@ -9,9 +9,11 @@ const { withScriptjs, withGoogleMap, GoogleMap, Marker} = require("react-google-
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 const _ = require("lodash");
 
+var debounce = require('lodash.debounce');
+
 const MyMapComponent = compose(
   withProps({
-      googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&libraries=geometry,drawing,places",
+      googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&v=3&libraries=geometry,drawing,places",
       loadingElement: <div style={{ height: `100%`}} />,
       containerElement: <div className="blockMap" />,
       mapElement: <div style={{ height: `100%`}} />
@@ -24,12 +26,18 @@ const MyMapComponent = compose(
         center: { lat: 47.214262, lng: -1.551431 },
         markers: [],
         onMapMounted: ref => { refs.map = ref; },
-        onBoundsChanged: () => {
+        onBoundsChanged: debounce(() => {
           this.setState({
             bounds: refs.map.getBounds(),
-            center: refs.map.getCenter(),
+            center: refs.map.getCenter()
           })
-        },
+          let { onBoundsChange } = this.props
+            if (onBoundsChange) {
+              onBoundsChange(refs.map)
+            }
+          },
+        100,
+        { maxWait: 5000 }),
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         },
