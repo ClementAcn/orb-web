@@ -161,10 +161,14 @@ class HomeDetail extends Component {
       })
   }
 }
+
+handleObjectChange = id => {
+   paperClick = placeClick.find(id)
+}
   
   render() {
     paperClick = placeClick.map((place) => (
-      <Paper key={place.id} elevation={2} className="p-3 mt-2">
+      <Paper onChange={this.handleObjectChange} key={place.id} elevation={2} className="p-3 mt-2">
         <Typography variant="h5">
           {place.name}
         </Typography>
