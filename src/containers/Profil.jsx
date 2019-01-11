@@ -7,27 +7,39 @@ class Profil extends Component {
         super(props);
         this.state = {
             id: "",
-            result: 0
+            result: 0,
+            email: "",
+            pseudo: "",
+            id_place:"",
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    
-    handleSubmit(event) {
-        event.preventDefault();
-        fetch(`http://localhost:9090/user/id?id=${this.state.id}`, {
-            method: 'POST',
-        }).then(results => {
-            return results.json();
-        }).then(data => {
-            this.setState({ result: data });
-        })
     }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
     render() {
+        fetch(`http://localhost:9090/user/id?id=${sessionStorage.getItem('userID')}`, {
+            method: 'POST',
+        }).then(results => {
+            return results.json();
+        }).then(data => {
+            this.setState({
+                 email: data.mail,
+                 pseudo: data.pseudo
+                 });
+        })
+
+        fetch(`http://localhost:9191//score/findNLastUser?n=1&id=${sessionStorage.getItem('userID')}`, {
+            method: 'POST',
+        }).then(results => {
+            return results.json();
+        }).then(data => {
+            this.setState({
+                 email: data.mail,
+                 id: data.pseudo
+                 });
+        })
       return (
         <MDBContainer className="my-5 py-5 center">
             <MDBRow className="d-flex justify-content-center">
@@ -37,12 +49,9 @@ class Profil extends Component {
             </MDBRow>
             <MDBRow>
                 <MDBCol size="6">
-                    <MDBInput icon="id-card-o" label="Nom" hint="Poney" disabled type="text" />
-                </MDBCol>
-                <MDBCol size="6">
                     <MDBInput
-                        label="Prénom"
-                        hint="Jean"
+                        label="pseudo"
+                        hint= {this.state.pseudo}
                         icon="id-card-o"
                         type="text"
                         disabled
@@ -50,10 +59,10 @@ class Profil extends Component {
                 </MDBCol>
             </MDBRow>
             <MDBRow>
-                <MDBCol size="12" icon="envelope">
+                <MDBCol size="6" icon="envelope">
                     <MDBInput
                         label="E-mail"
-                        hint="jeanleponey@gmail.com"
+                        hint={this.state.email}
                         icon="envelope"
                         type="text"
                         disabled

@@ -33,6 +33,20 @@ class ProfilModification extends Component {
     }
 
     render() {
+        fetch(`http://localhost:9090/user/?id=${sessionStorage.getItem('userID')}`, {
+            method: 'POST',
+        }).then(results => {
+            return results.json();
+        }).then(data => {
+            this.setState({ 
+                user: [{
+                    'id': sessionStorage.getItem('userID'),
+                    'mail': data.mail,
+                    'password': data.password,
+                    'pseudo': data.pseudo
+                }]
+        });
+        })
       return (
         <MDBContainer className="my-5 py-5 center">
             <MDBRow className="d-flex justify-content-center">

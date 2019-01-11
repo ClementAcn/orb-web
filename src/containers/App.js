@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header.jsx';
-import Home from './Home.jsx';
 import Connexion from './Connexion.jsx';
 import Inscription from './Inscription.jsx';
 import FooterApp from './Footer.jsx';
@@ -37,10 +36,8 @@ class App extends Component {
 
   render() {
 
-    console.log("navigation : " + this.state.navigation);
-    if (parseInt(this.state.navigation, 10) === 2) {
-      res = <Home name="Home" navig={this.handleClick} />
-    } else if (parseInt(this.state.navigation, 10) === 1 || this.state.navigation == null)  {
+    console.log("navigation : " + this.state.navigation); 
+    if (parseInt(this.state.navigation, 10) === 1 || this.state.navigation == null)  {
       res = <Connexion name="Connexion" navig={this.handleClick} />
     } else if (parseInt(this.state.navigation, 10) === 4) {
       res = <Inscription name="Inscription" navig={this.handleClick} />

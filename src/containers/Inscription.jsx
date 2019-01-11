@@ -11,17 +11,9 @@ class Inscription extends Component {
         this.state = {
             nom: "",
             prenom: "",
-            motDePasse: "",
-            dateNaissance: "",
-            email: "",
-            adresse: "",
-            photo: "",
-            profilPublic: true,
-            localisationPartage: true,
-            openSnackbar: false,
-            openSnackbar2: false,
-            latitude: 0,
-            longitude: 0
+            mail: "",
+            password: "",
+            pseudo: ""
         };
         this.sendRequete = this.sendRequete.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -37,52 +29,25 @@ class Inscription extends Component {
             console.log("OK");
             this.setState({ openSnackbar: true, });
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    this.setState({
-                        latitude: pos.lat,
-                        longitude: pos.lng
-                    })
-                    console.log("latitude : " + pos.lat + "  | lng  : " + pos.lng);
-                    fetch('http://localhost:8082/add', {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: JSON.stringify(
-                            {
-                                "nom": this.state.nom,
-                                "prenom": this.state.prenom,
-                                "motDePasse": this.state.motDePasse,
-                                "dateNaissance": this.state.dateNaissance,
-                                "email": this.state.email,
-                                "adresse": this.state.adresse,
-                                "photo": this.state.photo,
-                                "profilPublic": this.state.profilPublic,
-                                "listeLieuVisiter": [0],
-                                "interetsMusicaux": [{
-                                    "_id": 0,
-                                    "className": "iut.nantes.projetMRS.entity.EntityGenreMusic",
-                                    "name": "\"test\"",
-                                    "picture": "\"test\""
-                                }],
-                                "localisation": {
-                                    "latitude": this.state.latitude,
-                                    "longitude": this.state.longitude
-                                }
-                            }
-                        ),
-                        headers: {
-                            'Content-Type': 'application/json',
+                fetch('http://localhost:9090/', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(
+                        {
+                            "id": this.state.id,
+                            "mail": this.state.mail,
+                            "password": this.state.password,
+                            "pseudo": this.state.pseudo,
                         }
-                    })
-                    sessionStorage.setItem('navigation', 1);
-                    return window.location.reload();
-                    // return null;
-                });
-
-            }
+                    ),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                sessionStorage.setItem('navigation', 1);
+                return window.location.reload();
+                // return null;
+            };
         }
     }
 
