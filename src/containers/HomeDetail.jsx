@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
 import StarRatings from 'react-star-ratings';
+import axios from 'axios';
 const { withScriptjs, withGoogleMap, GoogleMap, Marker} = require("react-google-maps");
 const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 const _ = require("lodash");
@@ -146,29 +147,61 @@ class HomeDetail extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.commentaire);
-    console.log(placeClick !== []);
+    console.log(sessionStorage.getItem('userID'));
+    console.log(placeClick[0].place_id);
     console.log(this.state.rating);
-    console.log(placeClick);
+    console.log(this.state.commentaire);
+    console.log(typeof({
+      "id_user": sessionStorage.getItem('userID'),
+      "id_place": placeClick[0].place_id,
+      "score": this.state.rating,
+      "comment": this.state.commentaire
+  }));
     if (this.state.commentaire !== "" || this.state.rating !== 0 || placeClick === []){
       event.preventDefault();
-      fetch(`http://localhost:9191/user/login?pseudo=${this.state}&password=${this.state}`, {
-          method: 'POST',
-      }).then(results => {
-          return results.json();
-      }).then(data => {
-          this.setState({ result: data });
-      })
+      var data = new FormData();
+      data.append( "json", JSON.stringify( {
+        "id_user": sessionStorage.getItem('userID'),
+        "id_place": placeClick[0].place_id,
+        "score": this.state.rating,
+        "comment": this.state.commentaire
+    } ) );
+      // fetch(`http://localhost:9191/score/`, {
+      //     method: 'POST',
+      //     header: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },  
+      //     body: data
+      // }).then(results => {
+      //     return results.json();
+      // }).then(data => {
+      //     this.setState({ result: data });
+      // })
+      axios({
+        method: 'post',
+        url: 'http://localhost:9191/score/',
+        header: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+        data: {
+          score: {
+            "id_user": parseInt(sessionStorage.getItem('userID')),
+            "id_place": placeClick[0].place_id,
+            "score": this.state.rating,
+            "comment": this.state.commentaire
+          }
+        }
+      }).then(function(response) {
+        console.log(response.data);
+      });
   }
-}
-
-handleObjectChange = id => {
-   paperClick = placeClick.find(id)
 }
   
   render() {
     paperClick = placeClick.map((place) => (
-      <Paper onChange={this.handleObjectChange} key={place.id} elevation={2} className="p-3 mt-2">
+      <Paper key={place.id} elevation={2} className="p-3 mt-2">
         <Typography variant="h5">
           {place.name}
         </Typography>

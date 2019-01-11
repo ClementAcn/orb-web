@@ -13,33 +13,41 @@ class Profil extends Component {
             id_place:"",
         };
         this.handleChange = this.handleChange.bind(this);
+        this.getUser = this.getUser.bind(this);
     }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
-    render() {
-        fetch(`http://localhost:9090/user/id?id=${sessionStorage.getItem('userID')}`, {
-            method: 'POST',
-        }).then(results => {
-            return results.json();
-        }).then(data => {
-            this.setState({
-                 email: data.mail,
-                 pseudo: data.pseudo
-                 });
-        })
 
-        fetch(`http://localhost:9191//score/findNLastUser?n=1&id=${sessionStorage.getItem('userID')}`, {
-            method: 'POST',
-        }).then(results => {
-            return results.json();
-        }).then(data => {
-            this.setState({
-                 email: data.mail,
-                 id: data.pseudo
-                 });
-        })
+    getUser(){
+        
+    }
+    render() {
+        
+        if (this.state.email === "" || this.state.email === ""){
+            fetch(`http://localhost:9090/user/${sessionStorage.getItem('userID')}`, {
+                method: 'get',
+            }).then(results => {
+                return results.json();
+            }).then(data => {
+                this.setState({
+                    email: data.mail,
+                    pseudo: data.pseudo
+                    });
+            })
+
+            fetch(`http://localhost:9191//score/findNLastUser?n=1&id=${sessionStorage.getItem('userID')}`, {
+                method: 'get',
+            }).then(results => {
+                return results.json();
+            }).then(data => {
+                this.setState({
+                    email: data.mail,
+                    id: data.pseudo
+                    });
+            })
+        }
       return (
         <MDBContainer className="my-5 py-5 center">
             <MDBRow className="d-flex justify-content-center">
