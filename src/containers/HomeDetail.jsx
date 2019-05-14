@@ -16,7 +16,7 @@ let placeClick = [];
 
 const MyMapComponent = compose(
   withProps({
-      googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iCiEk0f4se1zRznMoT6Ex_ZWjj7SBWo&v=3&libraries=geometry,drawing,places",
+      googleMapURL: "https://maps.googleapis.com/maps/api/js?key=*YOUR API KEY*&libraries=geometry,drawing,places",
       loadingElement: <div style={{ height: `100%`}} />,
       containerElement: <div className="blockMap" />,
       mapElement: <div style={{ height: `100%`}} />
